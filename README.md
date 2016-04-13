@@ -1,2 +1,3 @@
 # Data Viz Practice
-data visualizations using R/Shiny
+
+* [Titanic](http://htmlpreview.github.io/?https://github.com/ernieja/data-vizs/blob/master/Titanic/titanic.html)
