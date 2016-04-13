@@ -1,2 +1,2 @@
-# data-vizs
-data visualizations using R/Shiny and Tableau
+# Data Viz Practice
+data visualizations using R/Shiny
