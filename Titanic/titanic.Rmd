@@ -1,0 +1,48 @@
+---
+title: 'Titanic Passengers'
+
+output: html_document
+---
+<br>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = F, message = F, echo = F)
+```
+```{r plot1, include=F}
+source("adultchild.R")
+```
+
+## "Women and Children First"
+
+Everyone's favorite garden variety [dataset](https://view.officeapps.live.com/op/view.aspx?src=http%3A%2F%2Fbiostat.mc.vanderbilt.edu%2Fwiki%2Fpub%2FMain%2FDataSets%2Ftitanic3.xls)! Using data from `r nrow(titanic.data)` individuals, the following visualizations attempt to illustrate how the ship's crew prioritized its passengers. Does the sinking of the Titanic deserve to be so famously associated with the phrase "women and children first"?
+
+
+***
+
+#### Adult survivor distribution based on SES status and gender 
+
+```{r plot1_out, echo=F}
+adult.plot
+```
+
+The most striking aspect of this plot is the disproportionate number of deaths among men, who occupy a whopping `r round(nrow(subset(titanic.adult, sex=="Men" & survived=="Perished")) / nrow(subset(titanic.adult, survived=="Perished")), 2)*100`% of the ship's total adult death count. It's interesting to note that while a large majority (`r round(nrow(subset(titanic.adult, sex=="Men" & survived=="Perished" & pclass=="3rd class")) / nrow(subset(titanic.adult, sex=="Men" & pclass=="3rd class")), 2)*100`%) of adult males in the bottom class perished, middle class passengers actually exceed this percentage with `r round(nrow(subset(titanic.adult, sex=="Men" & survived=="Perished" & pclass=="2nd class")) / nrow(subset(titanic.adult, sex=="Men" & pclass=="2nd class")), 2)*100`% of adult males dying. Not even a higher class disctinction was enough to guarantee men a spot on a lifeboat, it seems. The distribution among women passengers is an entirely different picture. Unlike adult males, first and second class females enjoyed top priority, with their combined death count comprising only `r round(nrow(subset(titanic.adult, sex=="Women" & (pclass=="2nd class" | pclass=="1st class") & survived=="Perished"))/nrow(subset(titanic.adult, survived=="Perished" & sex=="Women")),2)*100`% of all adult female deaths. 
+
+<br>
+
+#### Child (age < 13 years) survivor distribution based on SES status
+
+
+```{r plot2_out, fig.height=4}
+child.plot
+```
+
+<br>
+
+The majority of children belonged to the bottom class, with first class reserved for an exclusive `r round(nrow(subset(titanic.child, pclass=="1st class")) / nrow(titanic.child), 2)*100`% of children. The group's survival mirrors that of women's; no deaths occurred in second class, and only `r nrow(subset(titanic.child, titanic.child$pclass == "1st class" & titanic.child$survived == "Perished"))` child died in first class. Likewise, the high number of deaths in third class is, sadly, similar to the fates of the women.   
+<br>
+
+***
+
+Titanic passengers and crew members rightfully earned their reputation for upholding the "women and children first" principle. Perhaps a more accurate description of the procedure, however, would be "men last". Men received the short end of the stick en masse, whereas women--and their children--were still prioritized by class. 
+
+<br>
